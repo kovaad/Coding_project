@@ -1,0 +1,40 @@
+---
+title: "Coding1_team_assignment"
+author: "Adam Kovacs"
+date: "11/2/2021"
+output: 
+  pdf_document:
+    extra_dependencies: float
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+
+#import packages
+library(tidyverse)
+library(modelsummary)
+
+# import data
+df_orig <- read_csv( 'https://raw.githubusercontent.com/kovaad/ECBS-5208-Coding-1-Business-Analytics/master/data/DA1_data_Paris_HW1.csv' )
+
+View(df_orig)
+
+
+```
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
