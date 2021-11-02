@@ -3,17 +3,18 @@ title: "Coding1_team_assignment"
 author: "Adam Kovacs"
 date: "11/2/2021"
 output: 
-  pdf_document:
-    extra_dependencies: float
   html_document:
     df_print: paged
+  pdf_document:
+    extra_dependencies: float
 ---
 
-```{r setup, include=FALSE}
 
+```{r setup, include=FALSE}
 #import packages
 library(tidyverse)
 library(modelsummary)
+library(kableExtra)
 
 # import data
 df_orig <- read_csv( 'https://raw.githubusercontent.com/kovaad/ECBS-5208-Coding-1-Business-Analytics/master/data/DA1_data_Paris_HW1.csv' )
@@ -23,10 +24,28 @@ View(df_orig)
 
 ```
 
+## Introduction
+
+This is a report on the price collection project of the Paris team for the Data Analysis 1 course in the MS in Business Analytics programme of the Central European University. 
+
+HERE COMES THE MOTIVATION WHY THIS IS A MEANINGFUL PROJECT AND WHAT IS THE MAIN GOAL!
+
+To see the raw data collected: <https://raw.githubusercontent.com/kovaad/ECBS-5208-Coding-1-Business-Analytics/master/data/DA1_data_Paris_HW1.csv>.
+
+## Data
+
+HERE COMES A DETAILLED EXPLANATION ABOUT WHERE THE DATA COMES FROM AND IF IT IS REPRESENTATIVE OR NOT.
 
 
-```{r cars}
-summary(cars)
+```{r, echo=FALSE}
+P95 <- function(x){quantile(x,0.95,na.rm=T)}
+P05 <- function(x){quantile(x,0.05,na.rm=T)}
+datasummary( (`Coke` = Price_cola ) + (`Sport bar` = Price_sport )  ~
+             Mean + Median + SD + Min + Max + P05 + P95 , 
+             data = df_orig,
+             title = 'Descriptive statistics of prices',
+             notes = 'Data is available from: https://github.com/kovaad/ECBS-5208-Coding-1-Business-Analytics/blob/master/data/DA1_data_Paris_HW1.csv' ) %>% 
+  kableExtra::kable_styling(latex_options = "hold_position")
 ```
 
 ## Including Plots
