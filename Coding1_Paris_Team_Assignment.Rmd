@@ -48,12 +48,25 @@ datasummary( (`Coke` = Price_cola ) + (`Sport bar` = Price_sport )  ~
   kableExtra::kable_styling(latex_options = "hold_position")
 ```
 
-## Including Plots
+DESCRIPTION OF THE SUMMARY STATS: WHAT CAN WE LEARN FROM THEM?
 
-You can also embed plots, for example:
+As the focus is the price of coke and price of sport bar, the Figures below shows the histogram for this variable.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r, echo = FALSE, warning=FALSE, fig.width=4, fig.height = 3, fig.align="center" }
+
+ggplot( data = df_orig ) +
+  geom_histogram( aes( x = Price_cola ) , fill = 'navyblue'  , bins = 10 ) +
+  labs(x = "Price of cola",
+       y = "Relative Frequency" )# +
+  #xlim(-4,4) +
+ #theme_bw()
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+DESCRIPTION OF THE FIGURE. WHAT DOES IT TELS US?
+
+Explain why we have chosen such graph and bandwidth/number of bin
+
+## Conclusion
+
+Write 1-2 sentence, what we can learn from this exercise.
