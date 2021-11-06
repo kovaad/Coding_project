@@ -1,0 +1,140 @@
+---
+title: "Coding1_Team_Assignment"
+author: "Paris"
+date: "11/5/2021"
+output: pdf_document
+---
+
+```{r echo=F, warning=F, message=F, warning=FALSE}
+
+rm(list=ls())
+##import packages
+#install.packages("dplyr")
+#install.packages("ggplot2")
+#install.packages("modelsummary")
+#install.packages("kableExtra")
+
+library(tidyverse)
+library(ggplot2)
+library(modelsummary)
+library(kableExtra)
+
+
+#import data
+df_orig <- read.csv( "https://raw.githubusercontent.com/kovaad/ECBS-5208-Coding-1-Business-Analytics/master/data/DA1_data_Paris_HW1.csv" )
+
+colnames(df_orig)[colnames(df_orig) == 'Name'] <- 'store_name'
+colnames(df_orig)[colnames(df_orig) == 'Type'] <- 'store_type'
+
+```
+## Introduction
+
+This report is on the price collection project of the Paris team for the Data Analysis 1 course. The motivation behind this project is to compare and contrast prices of two commonly found products, a half liter plastic bottle of Coca Cola and a 31g Sport chocolate bar, and observe for price variation across different stores. We chose District 6, Terézváros and District 14, Zugló because they share a border and are a good representation of inner and outer city districts. Please find the data [**here**](https://raw.githubusercontent.com/kovaad/ECBS-5208-Coding-1-Business-Analytics/master/data/DA1_data_Paris_HW1.csv)
+
+## Data
+
+This dataset consists of nice columns and 26 observations which are as following; ID, Store Name, products price (price of sport chocolate bar and Coca Cola), address of the store, district number, store type, Google rating and distance from city center in meters. 
+
+We selected random stores in both districts and recorded the price for our both target products. Next we made sure those stores have location details on Google map as well as Google rating.
+
+```{r echo=F, warning=F, message=F, warning=FALSE}
+
+# Cleaning data
+# Correcting names of some variables
+
+df_orig["store_name"][df_orig["store_name"] == "Tesco"] <- "Tesco express"
+df_orig["store_name"][df_orig["store_name"] == "Roni ABC"] <- "ABC RONI"
+
+
+# Redefining variables
+df_orig$store_name <- as.factor(df_orig$store_name)
+df_orig$District <- as.factor(df_orig$District)
+df_orig$store_type <- as.factor(df_orig$store_type)
+df_orig$Price_sport <- as.numeric(df_orig$Price_sport)
+df_orig$Price_cola <- as.numeric(df_orig$Price_cola)
+df_orig$Google_rating <- as.numeric(df_orig$Google_rating)
+df_orig$Distance_from_centre <- as.numeric(df_orig$Distance_from_centre)
+
+
+# Arranging back to the ID order
+df_orig <- arrange(df_orig, ID)
+
+```
+
+# Statistics Report
+
+The table shows the descriptive statistics of Coca Cola and and Sport chocolate bar prices. As the result indicates both prices have higher mean than median. The range of prices is around 200 Huf for both products
+
+```{r, echo=FALSE}
+
+P95 <- function(x){quantile(x,0.95,na.rm=T)}
+P05 <- function(x){quantile(x,0.05,na.rm=T)}
+Range <- function(x){ Max(x, na.rm=T ) - min(x, na.rm=T ) }  
+Observations <- function(x){count(df_orig)}
+Missing_Values <- function(x){sum(is.na(x))}
+
+datasummary( (`Coke` = Price_cola ) + (`Sport bar` = Price_sport )  ~
+             Mean + Median + SD + Range+ Max + Min + P05 + P95 + Observations + Missing_Values, 
+             data = df_orig,
+             title = 'Descriptive Statistics of Prices',
+             notes = "Data is Available here: " )%>% 
+  kableExtra::kable_styling(latex_options = "hold_position")
+
+
+```
+
+# Distribution
+As the focus of this data collection is the price of Coca Cola and price of Sport Chocolate bar, the Figures below shows the histograms for these variable.
+
+## Cocal Cola
+There is one extreme value of 449 Huf, other prices are between 250 Huf and 330 Huf. Thus, we decided to calculate breaks between the bars which is four, in order to cover lower prices we decided to put 5 bins.
+
+
+```{r, echo = FALSE, warning=FALSE, fig.width=4, fig.height = 3, fig.align="center" }
+
+df <- df_orig %>%
+  filter(!is.na(Price_sport)) %>%
+  filter(!is.na(Google_rating))
+
+#hist(df$Price_cola, breaks= "FD") # To calculate Breaks
+coke_histogram <- ggplot( data = df ) +
+  geom_histogram( aes( x = Price_cola ) , fill = "#464646", col= "#f40009", bins = 5 ) +
+  labs(x = "Price of Cola in HUF",
+       y = "Relative Frequency" ) +
+  ggtitle("Coca Cola") + 
+  theme_bw() + theme(
+  plot.title = element_text(color = "#f40009", size=14, face="bold.italic", hjust = 0.5), 
+  axis.title = element_text(size = 8))
+
+coke_histogram
+```
+## Sport Chocoalte Bar
+
+Sport chocolate bar have lower prices compared to Coca Cola, however there are many variations.An extreme value of 289 Huf and other prices are between 85 Huf and 159 Huf. We decided to put 8 number of bins in order to visualize the extreme value, and other prices. 
+
+```{r, echo = FALSE, warning=FALSE, fig.width=4, fig.height = 3, fig.align="center" }
+
+#hist(df$Price_sport, breaks= "FD") # To calculate breaks
+
+sportbar_histogram <- ggplot( data = df ) +
+  geom_histogram( aes( x = Price_sport ) , fill = "#00bc00", col= "#fdd803", bins = 8 ) +
+  labs(x = "Price of Sport Chocolate Bar in HUF",
+       y = "Relative Frequency" ) +
+  ggtitle("Sport Chocolate Bar") + 
+  theme_bw() + theme(
+  plot.title = element_text(color = "#00bc00", size=14, face="bold", hjust = 0.5), 
+  axis.title = element_text(size = 8))
+
+sportbar_histogram
+
+```
+
+
+# Conclusion
+
+This report analyses prices of Coca Cola and Sport Chocolate bar. As descriptive statistics and histograms indicate that there are more price variation in Sport Chocolate bar than Coca Cola.
+
+
+
+
+
