@@ -111,7 +111,7 @@ coke_histogram
 ```
 ## Sport Chocoalte Bar
 
-Sport chocolate bar have lower prices compared to Coca Cola, however there are many variations.An extreme value of 289 Huf and other prices are between 85 Huf and 159 Huf. We decided to put 8 number of bins in order to visualize the extreme value, and other prices. 
+Sport chocolate bar have lower prices compared to Coca Cola, however there are many variations.An extreme value of 289 Huf and other prices are between 85 Huf and 159 Huf. We decided to put 10 number of bins in order to visualize the extreme value, and other prices. 
 
 ```{r, echo = FALSE, warning=FALSE, fig.width=4, fig.height = 3, fig.align="center" }
 
