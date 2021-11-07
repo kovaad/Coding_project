@@ -5,7 +5,7 @@ date: "11/5/2021"
 output: pdf_document
 ---
 
-```{r echo=F, warning=F, message=F, warning=FALSE}
+```{r echo=F, warning=F, message=F}
 
 rm(list=ls())
 ##import packages
@@ -37,7 +37,7 @@ This dataset consists of nice columns and 26 observations which are as following
 
 We selected random stores in both districts and recorded the price for our both target products. Next we made sure those stores have location details on Google map as well as Google rating.
 
-```{r echo=F, warning=F, message=F, warning=FALSE}
+```{r echo=F, warning=F, message=F}
 
 # Cleaning data
 # Correcting names of some variables
@@ -97,8 +97,9 @@ df <- df_orig %>%
   filter(!is.na(Google_rating))
 
 #hist(df$Price_cola, breaks= "FD") # To calculate Breaks
-coke_histogram <- ggplot( data = df ) +
-  geom_histogram( aes( x = Price_cola ) , fill = "#464646", col= "#f40009", bins = 5 ) +
+coke_histogram <- ggplot( data = df, aes( x= Price_cola ) ) +
+  geom_histogram( aes( y = ..density..) , fill = "#464646", col= "#f40009", bins = 5 ) +
+  geom_density( alpha = 0.2, fill = "#f40009") +
   labs(x = "Price of Cola in HUF",
        y = "Relative Frequency" ) +
   ggtitle("Coca Cola") + 
@@ -116,8 +117,9 @@ Sport chocolate bar have lower prices compared to Coca Cola, however there are m
 
 #hist(df$Price_sport, breaks= "FD") # To calculate breaks
 
-sportbar_histogram <- ggplot( data = df ) +
-  geom_histogram( aes( x = Price_sport ) , fill = "#00bc00", col= "#fdd803", bins = 8 ) +
+sportbar_histogram <- ggplot( data = df, aes(x = Price_sport) ) +
+  geom_histogram( aes( y = ..density.. ) , fill = "#00bc00", col= "#fdd803", bins = 10 ) +
+   geom_density( alpha = 0.4, fill = "#fdd803") +
   labs(x = "Price of Sport Chocolate Bar in HUF",
        y = "Relative Frequency" ) +
   ggtitle("Sport Chocolate Bar") + 
@@ -133,8 +135,6 @@ sportbar_histogram
 # Conclusion
 
 This report analyses prices of Coca Cola and Sport Chocolate bar. As descriptive statistics and histograms indicate that there are more price variation in Sport Chocolate bar than Coca Cola.
-
-
 
 
 
