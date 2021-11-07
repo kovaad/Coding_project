@@ -1,7 +1,7 @@
 ---
-title: "Coding1_Team_Assignment"
+title: "Coding-1 Team Assignment"
 author: "Paris"
-date: "11/5/2021"
+date: "11/7/2021"
 output: pdf_document
 ---
 
@@ -29,11 +29,11 @@ colnames(df_orig)[colnames(df_orig) == 'Type'] <- 'store_type'
 ```
 ## Introduction
 
-This report is on the price collection project of the Paris team for the Data Analysis 1 course. The motivation behind this project is to compare and contrast prices of two commonly found products, a half liter plastic bottle of Coca Cola and a 31g Sport chocolate bar, and observe for price variation across different stores. We chose District 6, Terézváros and District 14, Zugló because they share a border and are a good representation of inner and outer city districts. Please find the data [**here**](https://raw.githubusercontent.com/kovaad/ECBS-5208-Coding-1-Business-Analytics/master/data/DA1_data_Paris_HW1.csv)
+This report is on the price collection project of the Paris team for the Data Analysis 1 course. The motivation behind this project is to compare and contrast prices of two commonly found products, a half liter plastic bottle of Coca-Cola and a 31g Sport chocolate bar, and observe for price variation across different stores. We chose District 6, Terézváros and District 14, Zugló because they share a border and are a good representation of inner and outer city districts. Please find the data [**here**](https://raw.githubusercontent.com/kovaad/ECBS-5208-Coding-1-Business-Analytics/master/data/DA1_data_Paris_HW1.csv)
 
 ## Data
 
-This dataset consists of nice columns and 26 observations which are as following; ID, Store Name, products price (price of sport chocolate bar and Coca Cola), address of the store, district number, store type, Google rating and distance from city center in meters. 
+This dataset consists of nice columns and 26 observations which are as following; ID, Store Name, products price (price of sport chocolate bar and Coca-Cola), address of the store, district number, store type, Google rating and distance from city center in meters. 
 
 We selected random stores in both districts and recorded the price for our both target products. Next we made sure those stores have location details on Google map as well as Google rating.
 
@@ -63,7 +63,7 @@ df_orig <- arrange(df_orig, ID)
 
 # Statistics Report
 
-The table shows the descriptive statistics of Coca Cola and and Sport chocolate bar prices. As the result indicates both prices have higher mean than median. The range of prices is around 200 Huf for both products
+The table shows the descriptive statistics of Coca-Cola and Sport chocolate bar prices. As the result indicates both prices have higher mean than median. The range of prices is around 200 Huf for both products
 
 ```{r, echo=FALSE}
 
@@ -84,9 +84,9 @@ datasummary( (`Coke` = Price_cola ) + (`Sport bar` = Price_sport )  ~
 ```
 
 # Distribution
-As the focus of this data collection is the price of Coca Cola and price of Sport Chocolate bar, the Figures below shows the histograms for these variable.
+As the focus of this data collection is the price of Coca-Cola and price of Sport Chocolate bar, the Figures below shows the histograms for these variables.
 
-## Cocal Cola
+## Coca-Cola
 There is one extreme value of 449 Huf, other prices are between 250 Huf and 330 Huf. Thus, we decided to calculate breaks between the bars which is four, in order to cover lower prices we decided to put 5 bins.
 
 
@@ -102,16 +102,16 @@ coke_histogram <- ggplot( data = df, aes( x= Price_cola ) ) +
   geom_density( alpha = 0.2, fill = "#f40009") +
   labs(x = "Price of Cola in HUF",
        y = "Relative Frequency" ) +
-  ggtitle("Coca Cola") + 
+  ggtitle("Coca-Cola") + 
   theme_bw() + theme(
   plot.title = element_text(color = "#f40009", size=14, face="bold.italic", hjust = 0.5), 
   axis.title = element_text(size = 8))
 
 coke_histogram
 ```
-## Sport Chocoalte Bar
+## Sport Chocolate Bar
 
-Sport chocolate bar have lower prices compared to Coca Cola, however there are many variations.An extreme value of 289 Huf and other prices are between 85 Huf and 159 Huf. We decided to put 10 number of bins in order to visualize the extreme value, and other prices. 
+Sport chocolate bar have lower prices compared to Coca-Cola, however there are many variations.An extreme value of 289 Huf and other prices are between 85 Huf and 159 Huf. We decided to put 10 number of bins in order to visualize the extreme value, and other prices. 
 
 ```{r, echo = FALSE, warning=FALSE, fig.width=4, fig.height = 3, fig.align="center" }
 
@@ -134,7 +134,7 @@ sportbar_histogram
 
 # Conclusion
 
-This report analyses prices of Coca Cola and Sport Chocolate bar. As descriptive statistics and histograms indicate that there are more price variation in Sport Chocolate bar than Coca Cola.
+This report analyses prices of Coca-Cola and Sport Chocolate bar. As descriptive statistics and histograms indicate that there are more price variation in Sport Chocolate bar than Coca-Cola.
 
 
 
